@@ -1,0 +1,18 @@
+digraph G { rankdir=BT; node [shape=record, fontname="Helvetica", fontsize=10]; edge [fontname="Helvetica", fontsize=9];
+Person [label="{«abstract»\nPerson|# id : int\l# name : string\l|+ Person()\l+ Person(id, name)\l+ ~Person() «virtual»\l+ getId() : int\l+ getName() : string\l+ setName(n) : void\l+ display() : void «pure virtual»\l+ toRecord() : string «pure virtual»\l+ role() : string «pure virtual»\l}"];
+Customer [label="{Customer|- phone : string\l- address : string\l|+ Customer()\l+ Customer(id,name,phone,address)\l+ setPhone(p) : void\l+ setAddress(a) : void\l+ display() : void\l+ toRecord() : string\l}"];
+Worker [label="{Worker|- skill : string\l|+ Worker()\l+ Worker(id,name,skill)\l+ setSkill(s) : void\l+ display() : void\l+ toRecord() : string\l}"];
+Service [label="{Service|- serviceId : int\l- name : string\l- charge : double\l|+ Service()\l+ Service(id,name,charge)\l+ setName(n) : void\l+ setCharge(c) : void\l+ display() : void\l+ toRecord() : string\l}"];
+Booking [label="{Booking|- bookingId : int\l- customerId : int\l- serviceId : int\l- workerId : int\l- date : string\l- status : Status\l|+ Booking()\l+ Booking(b,c,s,w,date)\l+ book() : void\l+ cancel() : void\l+ complete() : void\l+ display() : void\l+ toRecord() : string\l}"];
+FileManager [label="{FileManager|- dir : string\l|+ FileManager(dir)\l+ save(...) : void\l+ load(...) : void\l}"];
+HS [label="{HouseholdSystem|- customers : Customer*\l- services : Service*\l- workers : Worker*\l- bookings : Booking*\l- custCount, servCount, workCount, bookCount : int\l- fm : FileManager\l|+ HouseholdSystem()\l+ ~HouseholdSystem()\l+ addCustomer() : void\l+ addService() : void\l+ addWorker() : void\l+ bookService() : void\l+ cancelBooking() : void\l+ completeService() : void\l+ saveData() : void\l+ loadData() : void\l+ run() : void\l}"];
+Utils [label="{«namespace»\nUtils|+ readLine / readInt / readDouble\l+ isValidName / isValidPhone\l+ isValidText / isValidDate\l+ toLower(s) : string\l+ grow<T>(arr, count, cap)\l}", style=dashed];
+HS -> Utils [style=dashed, arrowhead=vee, label="uses"]; Person -> Utils [style=dashed, arrowhead=vee, label="validates with"];
+Customer -> Person [arrowhead=empty]; Worker -> Person [arrowhead=empty];
+HS -> Customer [dir=back, arrowtail=diamond, label="1 owns  0..*"]; HS -> Service [dir=back, arrowtail=diamond, label="0..*"];
+HS -> Worker [dir=back, arrowtail=diamond, label="0..*"]; HS -> Booking [dir=back, arrowtail=diamond, label="0..*"];
+HS -> FileManager [arrowhead=vee, label="uses"];
+Booking -> Customer [style=dashed, arrowhead=vee, label="refers by customerId"];
+Booking -> Service [style=dashed, arrowhead=vee, label="serviceId"];
+Booking -> Worker [style=dashed, arrowhead=vee, label="workerId"];
+}

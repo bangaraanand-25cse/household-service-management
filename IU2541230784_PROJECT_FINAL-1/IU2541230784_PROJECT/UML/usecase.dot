@@ -1,0 +1,13 @@
+digraph U { rankdir=LR; fontname="Helvetica"; node [fontname="Helvetica", fontsize=10];
+Admin [shape=box, label="«actor»\nAdmin / Manager", style=filled, fillcolor="#e8f0fe"];
+Cust [shape=box, label="«actor»\nCustomer\n(via Admin desk)", style=filled, fillcolor="#e8f0fe"];
+Disk [shape=box, label="«actor»\nData Files", style=filled, fillcolor="#fef3e0"];
+subgraph cluster0 { label="Household Service Management System"; style=rounded;
+node [shape=ellipse, style=filled, fillcolor="#f4f4f4"];
+u1[label="Add Customer / Service / Worker"]; u2[label="Display Records"]; u3[label="Search Record"];
+u4[label="Update Record"]; u5[label="Delete Record"]; u6[label="Book Service"]; u7[label="Cancel Booking"];
+u8[label="Complete Service & Bill"]; u9[label="Generate Report"]; u10[label="Save / Load Data"]; }
+Admin -> {u1 u2 u3 u4 u5 u6 u7 u8 u9 u10} [arrowhead=none];
+Cust -> {u6 u7 u8} [arrowhead=none];
+u10 -> Disk [arrowhead=none];
+}
